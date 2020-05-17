@@ -65,6 +65,24 @@ Requiring `active_job/google_cloud_tasks/http/inline` makes the adapter skip enq
 require 'active_job/google_cloud_tasks/http/inline' unless Rails.env.production?
 ```
 
+#### Error when calling assets:precompile?
+
+When you call assets:precompile, all configs and initializers are loaded. If you load your credentials via environment variables they may not be available and the adapter initialization will cause errors. To solve this, wrap the `queue_adapter` config in a `unless ARGV.include?("assets:precompile")` condition. Eg.
+
+```ruby
+unless ARGV.include?("assets:precompile") # prevents running on assets:precompile
+  Rails.application.config.active_job.queue_adapter = ActiveJob::GoogleCloudTasks::HTTP::Adapter.new(
+    project: 'my-project',
+    location: 'europe-west2',
+    url: 'https://www.example.com/jobs',
+    client: Google::Cloud::Tasks.new(
+      version: :v2beta3,
+      credentials: JSON.parse(ENV["GOOGLE_CLOUD_PRODUCTION_KEYFILE"]) # this will cause an error if the environment variable does not exist
+    )
+  )
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
