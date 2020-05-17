@@ -67,7 +67,7 @@ require 'active_job/google_cloud_tasks/http/inline' unless Rails.env.production?
 
 #### Error when calling assets:precompile?
 
-When you call assets:precompile, all configs and initializers are loaded. If you load your credentials via environment variables they may not be available and the adapter initialization will cause errors. To solve this, wrap the `queue_adapter` config in a `unless ARGV.include?("assets:precompile")` condition. Eg.
+When you call assets:precompile, all configs and initializers are loaded. If you load your credentials via environment variables they may not be available and the adapter initialization will cause errors. To solve this, wrap the `queue_adapter` config in a `unless ARGV.include?("assets:precompile")` condition. e.g.:
 
 ```ruby
 unless ARGV.include?("assets:precompile") # prevents running on assets:precompile
