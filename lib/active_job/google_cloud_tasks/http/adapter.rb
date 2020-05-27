@@ -15,7 +15,7 @@ module ActiveJob
         end
 
         def enqueue(job, attributes = {})
-          path = client.queue_path(@project, @location, job.queue_name)
+          path = client.queue_path(project: @project, location: @location, queue: job.queue_name)
           task = build_task(job, attributes)
 
           client.create_task path, task
