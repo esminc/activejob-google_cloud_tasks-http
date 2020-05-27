@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "activejob"
   spec.add_runtime_dependency "google-cloud-tasks"
+  spec.add_runtime_dependency "google-protobuf"
   spec.add_runtime_dependency "rack"
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"

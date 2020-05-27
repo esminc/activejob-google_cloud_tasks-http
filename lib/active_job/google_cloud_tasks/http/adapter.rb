@@ -1,5 +1,6 @@
 require 'json'
 require 'google/cloud/tasks'
+require 'google/protobuf/timestamp_pb'
 
 module ActiveJob
   module GoogleCloudTasks
@@ -27,7 +28,7 @@ module ActiveJob
         private
 
         def client
-          @client ||= Google::Cloud::Tasks.new(version: :v2beta3)
+          @client ||= Google::Cloud::Tasks.cloud_tasks
         end
 
         def build_task(job, attributes)
@@ -49,4 +50,3 @@ module ActiveJob
     end
   end
 end
-
