@@ -70,8 +70,8 @@ RSpec.describe ActiveJob::GoogleCloudTasks::HTTP do
         client: client
       )
 
-      expect(client).to receive(:create_task) do |_path, task|
-        expect(task[:schedule_time]).to eq (Google::Protobuf::Timestamp.new(seconds: scheduled_at))
+      expect(client).to receive(:create_task) do |args|
+        expect(args[:task][:schedule_time]).to eq (Google::Protobuf::Timestamp.new(seconds: scheduled_at))
       end
 
       adapter.enqueue_at job, scheduled_at

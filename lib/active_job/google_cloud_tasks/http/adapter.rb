@@ -1,5 +1,6 @@
 require 'json'
 require 'google/cloud/tasks'
+require 'gapic/grpc' # to use Google::Protobuf::Timestamp which is used by Google::Cloud::Tasks::Vxx
 
 module ActiveJob
   module GoogleCloudTasks
@@ -14,10 +15,10 @@ module ActiveJob
         end
 
         def enqueue(job, attributes = {})
-          path = client.queue_path(@project, @location, job.queue_name)
+          path = client.queue_path(project: @project, location: @location, queue: job.queue_name)
           task = build_task(job, attributes)
 
-          client.create_task path, task
+          client.create_task parent: path, task: task
         end
 
         def enqueue_at(job, scheduled_at)
@@ -27,7 +28,7 @@ module ActiveJob
         private
 
         def client
-          @client ||= Google::Cloud::Tasks.new(version: :v2beta3)
+          @client ||= Google::Cloud::Tasks.cloud_tasks(version: :v2beta3)
         end
 
         def build_task(job, attributes)
