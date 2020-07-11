@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "activejob"
   spec.add_runtime_dependency "google-cloud-tasks", ">= 2.0.0"
   spec.add_runtime_dependency "rack"
+  spec.add_runtime_dependency "gapic-common"
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"

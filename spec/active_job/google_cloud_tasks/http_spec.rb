@@ -74,7 +74,7 @@ RSpec.describe ActiveJob::GoogleCloudTasks::HTTP do
         expect(args[:task][:schedule_time]).to eq (Google::Protobuf::Timestamp.new(seconds: scheduled_at))
       end
 
-      adapter.enqueue_at job, scheduled_at
+      adapter.enqueue_at job, Time.at(scheduled_at)
     end
   end
 end

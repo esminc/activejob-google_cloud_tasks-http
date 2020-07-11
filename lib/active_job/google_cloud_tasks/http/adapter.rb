@@ -1,6 +1,6 @@
 require 'json'
 require 'google/cloud/tasks'
-require 'gapic/grpc' # to use Google::Protobuf::Timestamp which is used by Google::Cloud::Tasks::Vxx
+require 'gapic/protobuf'
 
 module ActiveJob
   module GoogleCloudTasks
@@ -42,7 +42,7 @@ module ActiveJob
             }
           }
 
-          task[:schedule_time] = Google::Protobuf::Timestamp.new(seconds: attributes[:scheduled_at].to_i) if attributes.has_key?(:scheduled_at)
+          task[:schedule_time] = Gapic::Protobuf.time_to_timestamp(Time.at(attributes[:scheduled_at].to_i)) if attributes.has_key?(:scheduled_at)
 
           task
         end
