@@ -18,7 +18,14 @@ module ActiveJob
           path = client.queue_path(project: @project, location: @location, queue: job.queue_name)
           task = build_task(job, attributes)
 
-          client.create_task parent: path, task: task
+          begin
+            client.create_task(parent: path, task: task)
+          rescue Google::Cloud::FailedPreconditionError => e
+            raise e if e.details != "Queue does not exist."
+
+            client.create_queue(build_queue(path))
+            retry
+          end
         end
 
         def enqueue_at(job, scheduled_at)
@@ -46,8 +53,14 @@ module ActiveJob
 
           task
         end
+
+        def build_queue(path)
+          {
+            parent: path.split('/queues').first,
+            queue: { name: path }
+          }
+        end
       end
     end
   end
 end
-
