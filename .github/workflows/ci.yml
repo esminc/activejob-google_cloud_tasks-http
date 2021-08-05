@@ -9,13 +9,15 @@ jobs:
     strategy:
       matrix:
         ruby_image:
+          - ruby:latest
           - ruby:3.0
           - ruby:2.7
           - ruby:2.6
         bundle:
-          - activejob-5.2
-          - activejob-6.0
+          - latest
           - activejob-6.1
+          - activejob-6.0
+          - activejob-5.2
     container:
       image: ${{ matrix.ruby_image }}
     steps:
