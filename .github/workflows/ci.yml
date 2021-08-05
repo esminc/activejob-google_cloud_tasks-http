@@ -1,13 +1,19 @@
-name: Verify
+name: CI
 on:
  - push
 
 jobs:
-  tests:
-    name: Tests
+  test:
+    name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby_image:
+          - ruby:3.0
+          - ruby:2.7
+          - ruby:2.6
     container:
-      image: ruby
+      image: ${{ matrix.ruby_image }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
