@@ -12,6 +12,10 @@ jobs:
           - ruby:3.0
           - ruby:2.7
           - ruby:2.6
+        bundle:
+          - activejob-5.2
+          - activejob-6.0
+          - activejob-6.1
     container:
       image: ${{ matrix.ruby_image }}
     steps:
@@ -21,4 +25,5 @@ jobs:
       - name: Install dependencies and run tests
         run: |
           bundle
-          rake spec
+          bundle exec appraisal install
+          bundle exec appraisal "${{ matrix.bundle }}" rake spec
