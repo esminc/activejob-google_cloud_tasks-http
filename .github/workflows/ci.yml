@@ -1,0 +1,31 @@
+name: CI
+on:
+ - push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby_image:
+          - ruby:latest
+          - ruby:3.0
+          - ruby:2.7
+          - ruby:2.6
+        bundle:
+          - latest
+          - activejob-6.1
+          - activejob-6.0
+          - activejob-5.2
+    container:
+      image: ${{ matrix.ruby_image }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies and run tests
+        run: |
+          bundle
+          bundle exec appraisal install
+          bundle exec appraisal "${{ matrix.bundle }}" rake spec
