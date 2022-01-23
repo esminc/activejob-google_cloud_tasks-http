@@ -75,10 +75,10 @@ unless ARGV.include?("assets:precompile") # prevents running on assets:precompil
     project: 'my-project',
     location: 'europe-west2',
     url: 'https://www.example.com/jobs',
-    client: Google::Cloud::Tasks.cloud_tasks(
-      version: :v2beta3,
-      credentials: JSON.parse(ENV["GOOGLE_CLOUD_PRODUCTION_KEYFILE"]) # this will cause an error if the environment variable does not exist
-    )
+    client: Google::Cloud::Tasks.cloud_tasks(version: :v2beta3) { |config|
+      # this will cause an error if the environment variable does not exist
+      config.credentials = JSON.parse(ENV["GOOGLE_CLOUD_PRODUCTION_KEYFILE"])
+    }
   )
 end
 ```
