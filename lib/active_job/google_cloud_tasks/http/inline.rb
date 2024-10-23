@@ -4,6 +4,11 @@ module ActiveJob
   module GoogleCloudTasks
     module HTTP
       module Inlining
+        # Method expected in Rails 7.2 and later
+        def enqueue_after_transaction_commit?
+          false
+        end
+
         def enqueue(job, *)
           ActiveJob::Base.execute job.serialize
         end

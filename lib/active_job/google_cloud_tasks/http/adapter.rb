@@ -6,12 +6,18 @@ module ActiveJob
   module GoogleCloudTasks
     module HTTP
       class Adapter
-        def initialize(project:, location:, url:, task_options: {}, client: nil)
+        def initialize(project:, location:, url:, task_options: {}, client: nil, enqueue_after_transaction_commit: false)
           @project = project
           @location = location
           @url = url
           @task_options = task_options
           @client = client
+          @enqueue_after_transaction_commit = enqueue_after_transaction_commit
+        end
+
+        # Method expected in Rails 7.2 and later
+        def enqueue_after_transaction_commit?
+          @enqueue_after_transaction_commit
         end
 
         def enqueue(job, attributes = {})
