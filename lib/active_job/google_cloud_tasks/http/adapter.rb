@@ -34,7 +34,7 @@ module ActiveJob
         private
 
         def client
-          @client ||= Google::Cloud::Tasks.cloud_tasks(version: :v2beta3)
+          @client ||= Google::Cloud::Tasks.cloud_tasks
         end
 
         def build_task(job, attributes)
