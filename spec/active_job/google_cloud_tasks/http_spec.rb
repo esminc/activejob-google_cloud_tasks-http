@@ -1,3 +1,4 @@
+require 'logger'
 require 'active_job'
 require 'stringio'
 
