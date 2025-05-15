@@ -28,8 +28,8 @@ Configure an adapter instance and pass it to Active Job:
 Rails.application.config.active_job.queue_adapter = ActiveJob::GoogleCloudTasks::HTTP::Adapter.new(
   project: 'a-gcp-project-name',
   location: 'asia-northeast1',
-  url: 'https://an-endpoint-to-perform-jobs.a.run.app/_jobs',
-  client: Google::Cloud::Tasks.cloud_tasks(version: :v2beta3), # optional
+  url: 'https://hibariya.org/',
+  client: Google::Cloud::Tasks.cloud_tasks, # optional
   task_options: { # optional
     oidc_token: {
       service_account_email: 'cloudrun-invoker@a-gcp-project-name.iam.gserviceaccount.com'
@@ -75,7 +75,7 @@ unless ARGV.include?("assets:precompile") # prevents running on assets:precompil
     project: 'my-project',
     location: 'europe-west2',
     url: 'https://www.example.com/jobs',
-    client: Google::Cloud::Tasks.cloud_tasks(version: :v2beta3) { |config|
+    client: Google::Cloud::Tasks.cloud_tasks { |config|
       # this will cause an error if the environment variable does not exist
       config.credentials = JSON.parse(ENV["GOOGLE_CLOUD_PRODUCTION_KEYFILE"])
     }

@@ -1,3 +1,7 @@
+## 0.3.0
+
+Now the default Google::Cloud::Tasks client uses its default API version. Fixed #15.
+
 ## 0.2.0
 
 This version depends on google-cloud-tasks 2.0 or later. Since google-cloud-tasks 2.0 has API changes, upgrading to this version may affect to existing adapter initialization code. If you are initializing Google::Cloud::Tasks client manually, you will have to change `Google::Cloud::Tasks.new` to `Google::Cloud::Tasks.cloud_tasks` as follows:
