@@ -10,19 +10,25 @@ jobs:
       matrix:
         ruby_image:
           - ruby:latest
-          - ruby:3.0
-          - ruby:2.7
-          - ruby:2.6
+          - ruby:3.3
+          - ruby:3.4
         bundle:
           - latest
-          - activejob-6.1
-          - activejob-6.0
-          - activejob-5.2
+          - activejob-7.2
+        include:
+          - ruby_image: ruby:2.6
+            bundle: activejob-5.2
+          - ruby_image: ruby:2.6
+            bundle: activejob-6.1
+          - ruby_image: ruby:3.0
+            bundle: activejob-5.2
+          - ruby_image: ruby:3.0
+            bundle: activejob-6.1
     container:
       image: ${{ matrix.ruby_image }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install dependencies and run tests
         run: |
