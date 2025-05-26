@@ -1,6 +1,6 @@
-## 0.3.0
+## 0.4.0
 
-Now the default Google::Cloud::Tasks client uses its default API version. Fixed #15.
+Now the default Google::Cloud::Tasks client uses its default API version. Fixed [#15](https://github.com/esminc/activejob-google_cloud_tasks-http/issues/15).
 
 ## 0.2.0
 
